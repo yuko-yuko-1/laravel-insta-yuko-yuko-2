@@ -30,6 +30,7 @@
                     @enderror
                 </div>
             </div>
+
             <label for="name" class="form-label fw-bold">Name</label>
             <input type="text" name="name" id="name" value="{{ old('name', Auth::user()->name) }}" class="form-control">
             @error('name')
@@ -50,7 +51,32 @@
 
             <button type="submit" class="btn btn-warning mt-3 px-5">Save</button>
         </form>
+
+        <form action="{{ route('profile.update-password')}}" method="post" class="bg-white rounded-3 shadow p-5">
+            @csrf 
+            @method('PATCH')
+
+            <h2 class="h4 text-secondary">Update Password</h2>
+
+            <label for="old-password" class="form-label fw-bold">Old Password</label>
+            <input type="password" name="old_password" id="old-password" class="form-control">
+            @if(session('incorrect_password_error'))
+               <span class="text-danger small d-block">{{ session('incorrect_password_error') }}</span>
+            @endif
+
+            <label for="new-password" class="form-label fw-bold mt-3">New Password</label>
+            <input type="password" name="new_password" id="new-password" class="form-control">
+            @if(session('same_password_error'))
+                <span class="text-danger small d-block">{{ session('same_password_error') }}</span>
+            @endif
+
+            <label for="new-password-confirmation" class="form-label mt-3">Confirm New Password</label>
+            <input type="password" name="new_password_confirmation" id="new-password-confirmation" class="form-control">
+
+            <button type="submit" class="btn btn-warning mt-4 px-5">Update Password</button>
+        </form>
     </div>
 </div>
+
 
 @endsection

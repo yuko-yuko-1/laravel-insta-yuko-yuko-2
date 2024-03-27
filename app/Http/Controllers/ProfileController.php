@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
 class ProfileController extends Controller
@@ -69,5 +70,25 @@ class ProfileController extends Controller
         $user_a = $this->user->findOrFail($id);
 
         return view('user.profiles.following')->with('user', $user_a);
+    }
+
+    public function updatePassword(Request $request){
+        // incorrect current password
+        $user_a = $this->user->findOrFail(Auth::user()->id); //get the logged-in user details
+        if(!Hash::check($request->old_password, $user_a->password)){
+            //validation error
+            return redirect()->back()->with('incorrect_password_error', 'Current password is incorrect.');
+        }
+
+        // new password cannot be same as old password
+        if($request->old_password == $request->new_password){
+            //validation error
+            return redirect()->back()->with('same_password_error', 'New password cannot be the same as old password.');
+        }
+
+        // password confirmation does not match
+        $request->validate([
+            'new_password' => 'required|min:8|string|confirmed'
+        ]);
     }
 }
