@@ -56,6 +56,10 @@
             @csrf 
             @method('PATCH')
 
+            @if(session('success_message'))
+                <span class="text-success fw-bold d-block mb-3">{{ session('success_message') }}</span>
+            @endif
+
             <h2 class="h4 text-secondary">Update Password</h2>
 
             <label for="old-password" class="form-label fw-bold">Old Password</label>
@@ -69,6 +73,9 @@
             @if(session('same_password_error'))
                 <span class="text-danger small d-block">{{ session('same_password_error') }}</span>
             @endif
+            @error('new_password')
+                <span class="text-danger small d-block">{{ $message }}</span>
+            @enderror
 
             <label for="new-password-confirmation" class="form-label mt-3">Confirm New Password</label>
             <input type="password" name="new_password_confirmation" id="new-password-confirmation" class="form-control">

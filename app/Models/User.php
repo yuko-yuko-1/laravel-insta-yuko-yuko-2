@@ -55,7 +55,7 @@ class User extends Authenticatable
     //user has many comments
    //not needed yet
 
-   //user (follower) has many follows
+   //user (follower) has many follows ; list of users $this user is following
    public function follows(){
         return $this->hasMany(Follow::class, 'follower_id');
    }
@@ -72,5 +72,12 @@ class User extends Authenticatable
         //where() - in the list of followers, is the logged-in user there?
         //exists() - if where() finds anything, return true
 
+   }
+
+   public function followsYou(){
+        return $this->follows()->where('followed_id', Auth::user()->id)->exists();
+        // $this->follows() - list of users being followed by $this user
+        //where() - which followed user is the logged-in user
+        //exists() - return true if where() finds records
    }
 }

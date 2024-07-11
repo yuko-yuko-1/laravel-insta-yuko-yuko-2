@@ -89,6 +89,12 @@ class ProfileController extends Controller
         // password confirmation does not match
         $request->validate([
             'new_password' => 'required|min:8|string|confirmed'
+            //confirmed - compares 2 inputs are the same: 'n' and 'n_confirmation'
         ]);
+
+        $user_a->password = Hash::make($request->new_password);
+        $user_a->save();
+
+        return redirect()->back()->with('success_message', 'Successfully changed password!');
     }
 }

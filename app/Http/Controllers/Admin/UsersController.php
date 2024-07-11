@@ -17,14 +17,16 @@ class UsersController extends Controller
     public function index(Request $request){
 
         if($request->search){
-            $all_users = $this->user->where('name', 'like', '%'.$request->search.'%')
-                                    ->orderBy('name')->withTrashed()->paginate(10); 
+            $all_users = $this->user
+            ->where('name', 'like', '%'.$request->search.'%')
+            ->orderBy('name')
+            ->withTrashed()->paginate(10);
         }else{
-        //get all users, ordered by name
-        $all_users = $this->user->orderBy('name')
-                                ->withTrashed()->paginate(10);
-        //paginate(n) - display with n rows per page
-        //withTrashed - include (in the list) soft-deleted records
+            //get all users, ordered by name
+            $all_users = $this->user->orderBy('name')
+                                    ->withTrashed()->paginate(10);
+            //paginate(n) - display with n rows per page
+            //withTrashed - include (in the list) soft-deleted records
         }
         return view('admin.users.index')->with('all_users', $all_users)
                                         ->with('search', $request->search);

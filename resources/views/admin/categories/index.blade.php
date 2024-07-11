@@ -55,6 +55,8 @@
             <td>0</td>
             <td>Uncategorized</td>
             <td>{{ $uncategorized_count }}</td>
+            <td></td>
+            <td></td>
         </tr>
     </tbody>
 </table>

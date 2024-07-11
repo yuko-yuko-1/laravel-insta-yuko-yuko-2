@@ -5,7 +5,7 @@
 @section('content')
 
 <form action="{{ route('admin.users')}}" method="get" style="width:10rem" class="ms-auto mb-2">
-    <input type="text" name="search" value="{{ $search }}" class="form-control">
+    <input type="text" name="search" value="{{ $search }}" placeholder="search names" class="form-control">
 </form>
 
 <table class="table border table-hover bg-white text-muted align-middle">

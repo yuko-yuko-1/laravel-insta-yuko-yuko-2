@@ -70,7 +70,7 @@
                     <span class="text-secondary fw-bold">Suggestions For You</span>
                 </div>
                 <div class="col-auto">
-                    <a href="" class="text-decoration-none text-dark fw-bold">See all</a>
+                    <a href="{{ route('suggested-users')}}" class="text-decoration-none text-dark fw-bold">See all</a>
                 </div>
             </div>
             @foreach($suggested_users as $user)

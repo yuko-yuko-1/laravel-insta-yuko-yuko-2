@@ -60,6 +60,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/profile/{id}/following', [ProfileController::class, 'following'])->name('profile.following');
 
     Route::patch('/profile/update-password', [ProfileController::class, 'updatePassword'])->name('profile.update-password');
+    
     //LIKES
     Route::post('/like/{post_id}/store', [LikeController::class, 'store'])->name('like.store');
 
@@ -70,6 +71,8 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::delete('/follow/{user_id}/destroy', [FollowController::class, 'destroy'])->name('follow.destroy');
 
+    //SUGGESTED USERS
+    Route::get('/suggested-users', [HomeController::class, 'allSuggestedUsers'])->name('suggested-users');
 
     //ADMIN
     Route::group(['middleware' => 'admin'], function(){
