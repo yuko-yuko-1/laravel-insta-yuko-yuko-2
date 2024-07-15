@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
@@ -12,9 +13,9 @@ class UsersSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    public function __construct(User $user){
-        $this->user = $user;
-    }
+    // public function __construct(User $user){
+    //     $this->user = $user;
+    // }
 
     public function run(): void
     {      
@@ -44,6 +45,12 @@ class UsersSeeder extends Seeder
                 'created_at' => NOW()
             ],       
         ];
-        $this->user->insert($users);
+        foreach ($users as $user) {
+            // 重複をチェックしてから挿入
+            if (!DB::table('users')->where('email', $user['email'])->exists()) {
+                DB::table('users')->insert($user);
+            }
+        }
+        // $this->user->insert($users);
     }
 }
